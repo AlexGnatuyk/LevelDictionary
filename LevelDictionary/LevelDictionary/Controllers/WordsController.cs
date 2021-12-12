@@ -1,14 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using ExcelDataReader;
 using LevelDictionary.Application.Interfaces;
 using LevelDictionary.Persistence.Entities;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Net.Http.Headers;
 
 namespace LevelDictionary.Controllers
 {
     //[ApiController]
     [Route("[controller]")]
-    public class WordsController: ControllerBase
+    public class WordsController : ControllerBase
     {
         private readonly IWordsService _wordsService;
 
@@ -32,13 +42,14 @@ namespace LevelDictionary.Controllers
             var words = await _wordsService.GetWordsByLevel(level);
             return Ok(words);
         }
-        
+
         [HttpGet]
         [Route("GetLevelByWord")]
         public async Task<ActionResult<string>> GetLevelByWord(string word)
         {
             var level = await _wordsService.GetLevelByWord(word);
-            return Ok(level);
+            
+            return Ok(JsonSerializer.Serialize(level));
         }
 
         [HttpGet]
@@ -57,5 +68,12 @@ namespace LevelDictionary.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("UploadExcelFile")]
+        public async Task<IActionResult> UploadExcelFile(IFormFile file)
+        {
+            var words = await _wordsService.SaveExcelFile(file);
+            return Ok(words);
+        }
     }
 }

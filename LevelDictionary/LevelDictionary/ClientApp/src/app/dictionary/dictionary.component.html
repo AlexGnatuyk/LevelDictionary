@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div>
+  <div class="col-md-3">
+    <label>Веди слово для которого хочешь узнать уровень</label>
+    <input [(ngModel)]="word">
+    <ng-container *ngIf="level">
+      <div>Уровень: {{level}}</div>
+    </ng-container>
+    <br>
+    <button type="button" class="btn btn-success" (click)="SearchLevel()">Узнать уровень</button>
+  </div>
+</div>

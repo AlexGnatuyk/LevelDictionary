@@ -9,6 +9,7 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
+import {UploadComponent} from "./upload/upload.component";
 import {DictionaryComponent} from "./dictionary/dictionary.component";
 
 @NgModule({
@@ -18,6 +19,7 @@ import {DictionaryComponent} from "./dictionary/dictionary.component";
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
+    UploadComponent,
     DictionaryComponent
   ],
   imports: [
@@ -26,7 +28,7 @@ import {DictionaryComponent} from "./dictionary/dictionary.component";
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
+      { path: 'upload', component: UploadComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],

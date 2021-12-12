@@ -43,6 +43,16 @@ namespace LevelDictionary
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "TechnologyСomparacing.WebApi", Version = "v1"});
             });
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyHeader();
+                    policy.AllowAnyMethod();
+                    policy.AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +79,7 @@ namespace LevelDictionary
             }
 
             app.UseRouting();
+            app.UseCors("AllowAll");
 
             app.UseEndpoints(endpoints =>
             {
